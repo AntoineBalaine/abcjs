@@ -1,5 +1,5 @@
 var parseKeyVoice = require('../parse/abc_parse_key_voice');
-var parseCommon = require('../parse/abc_common');
+var parseCommon = require('./abc_common');
 
 var TuneBuilder = function(tune) {
 	var self = this;

@@ -1,6 +1,21 @@
-//    abc_parse.js: parses a string representing ABC Music Notation into a usable internal structure.
+//    abc_parse.ts: parses a string representing ABC Music Notation into a usable internal structure.
 
-var parseCommon = {};
+type ParseCommon = {
+	clone : <T>(source: T) =>T;
+	cloneArray : <T>(source: Array<T>) =>Array<T>;
+	cloneHashOfHash : <T>(source: T) =>T;
+	cloneHashOfArrayOfHash : <T>(source: { [key: string]: Array<T> }) =>{[key: string]: Array<T> };
+	gsub : (source, pattern, replacement) =>void;
+	strip : (str) =>void;
+	startsWith : (str, pattern) =>void;
+	endsWith : (str, pattern) =>void;
+	each : (arr, iterator, context) =>void;
+	last : (arr) =>void;
+	compact : (arr) =>void;
+	detect : (arr, iterator) =>void;
+}
+
+var parseCommon:ParseCommon = {} as ParseCommon;
 
 parseCommon.clone = function(source) {
 	var destination = {};

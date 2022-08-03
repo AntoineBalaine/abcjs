@@ -1,6 +1,13 @@
 var parseCommon = require('./abc_common');
 
-var parseDirective = {};
+type ParseDirective = {
+	initialize: (tokenizer_, warn_, multilineVars_, tune_, tuneBuilder_)=>void,
+	parseFontChangeLine: (textstr) =>void;
+	addDirective : (str: string) =>void;
+	globalFormatting : (formatHash) =>void;
+}
+
+let parseDirective: ParseDirective = {} as ParseDirective;
 
 (function() {
 	"use strict";

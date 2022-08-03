@@ -1,14 +1,14 @@
 //    wrap_lines.js: does line wrap on an already parsed tune.
 
-function wrapLines(tune, lineBreaks, barNumbers) {
+function wrapLines(tune: any, lineBreaks: any, barNumbers: any) {
 	if (!lineBreaks || tune.lines.length === 0)
 		return;
 
 	// tune.lines contains nested arrays: there is an array of lines (that's the part this function rewrites),
 	// there is an array of staffs per line (for instance, piano will have 2, orchestra will have many)
 	// there is an array of voices per staff (for instance, 4-part harmony might have bass and tenor on a single staff)
-	var lines = tune.deline({lineBreaks: false});
-	var linesBreakElements = findLineBreaks(lines, lineBreaks);
+	const lines = tune.deline({lineBreaks: false});
+	const linesBreakElements = findLineBreaks(lines, lineBreaks);
 	//console.log(JSON.stringify(linesBreakElements))
 	tune.lines = addLineBreaks(lines, linesBreakElements, barNumbers);
 	tune.lineBreaks = linesBreakElements;

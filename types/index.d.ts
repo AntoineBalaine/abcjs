@@ -798,7 +798,7 @@ declare module 'abcjs' {
 		endBeam?: boolean;
 		endSlur?: number;
 		endTriplet?: true;
-		fonts: Font;
+		fonts: any;
 		gracenotes?: Array<any>;
 		lyric?: Array<any>;
 		noStem?: boolean;
