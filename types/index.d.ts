@@ -3,6 +3,7 @@ declare module 'abcjs' {
 	// Enumerations
 	//
 
+
 	export type Clef = 'treble' | 'tenor' | 'bass' | 'alto' | 'treble+8' | 'tenor+8' | 'bass+8' | 'alto+8' | 'treble-8' | 'tenor-8' | 'bass-8' | 'alto-8' | 'none' | 'perc';
 
 	export type Bar = 'bar_dbl_repeat' | 'bar_right_repeat' | 'bar_left_repeat' | 'bar_invisible' | 'bar_thick_thin' | 'bar_thin_thin' | 'bar_thin' | 'bar_thin_thick';
@@ -46,9 +47,34 @@ declare module 'abcjs' {
 		"freeText" | "keySignature" | "note" | "part" | "partOrder" | "rhythm" | "slur" | "subtitle" | "tempo" | "timeSignature" | "title" |
 		"unalignedWords" | "voiceName";
 
-	export type FormatAttributes = "titlefont" | "gchordfont" | "composerfont" | "footerfont" | "headerfont" | "historyfont" | "infofont" |
-		"measurefont" | "partsfont" | "repeatfont" | "subtitlefont" | "tempofont" | "textfont" | "voicefont" | "tripletfont" | "vocalfont" |
-		"wordsfont" | "annotationfont" | "scale" | "partsbox" | "freegchord" | "fontboxpadding" | "stretchlast" | "tablabelfont" | "tabnumberfont" | "tabgracefont";
+	export enum FormatAttributes {
+		titlefont = "titlefont",
+		gchordfont = "gchordfont",
+		composerfont = "composerfont",
+		footerfont = "footerfont",
+		headerfont = "headerfont",
+		historyfont = "historyfont",
+		infofont = "infofont",
+		measurefont = "measurefont",
+		partsfont = "partsfont",
+		repeatfont = "repeatfont",
+		subtitlefont = "subtitlefont",
+		tempofont = "tempofont",
+		textfont = "textfont",
+		voicefont = "voicefont",
+		tripletfont = "tripletfont",
+		vocalfont = "vocalfont",
+		wordsfont = "wordsfont",
+		annotationfont = "annotationfont",
+		scale = "scale",
+		partsbox = "partsbox",
+		freegchord = "freegchord",
+		fontboxpadding = "fontboxpadding",
+		stretchlast = "stretchlast",
+		tablabelfont = "tablabelfont",
+		tabnumberfont = "tabnumberfont",
+		tabgracefont = "tabgracefont"
+	}
 
 	export type MidiCommands = "nobarlines" | "barlines" | "beataccents" | "nobeataccents" | "droneon" | "droneoff" | "noportamento" | "channel" | "c" |
 		"drumon" | "drumoff" | "fermatafixed" | "fermataproportional" | "gchordon" | "gchordoff" | "bassvol" | "chordvol" |
@@ -571,7 +597,7 @@ declare module 'abcjs' {
 	}
 
 	export interface VoiceItemClef {
-		el_type: "clef";
+		el_type: ElementType.clef;
 		stafflines?: number;
 		staffscale?: number;
 		transpose?: number;
@@ -583,7 +609,7 @@ declare module 'abcjs' {
 	}
 
 	export interface VoiceItemBar {
-		el_type: "bar";
+		el_type: ElementType.bar;
 		barNumber?: number;
 		chord?: Array<ChordProperties>;
 		decoration: Array<Decorations>;
@@ -594,24 +620,24 @@ declare module 'abcjs' {
 	}
 
 	export interface VoiceItemGap {
-		el_type: "gap";
+		el_type: ElementType.gap;
 		gap: number;
 	}
 
 	export interface VoiceItemKey extends KeySignature {
-		el_type: "key";
+		el_type: ElementType.key;
 		startChar: number;
 		endChar: number;
 	}
 
 	export interface VoiceItemMeter extends Meter {
-		el_type: "meter";
+		el_type: ElementType.meter;
 		startChar: number;
 		endChar: number;
 	}
 
 	export interface VoiceItemMidi {
-		el_type: "midi";
+		el_type: ElementType.midi;
 		cmd: MidiCommands;
 		params: Array<string|number>;
 		startChar: number;
@@ -619,47 +645,47 @@ declare module 'abcjs' {
 	}
 
 	export interface VoiceItemOverlay {
-		el_type: "overlay";
+		el_type: ElementType.overlay;
 		startChar: number;
 		endChar: number;
 		overlay: Array<NoteProperties>;
 	}
 
 	export interface VoiceItemPart {
-		el_type: "part";
+		el_type: ElementType.part;
 		startChar: number;
 		endChar: number;
 		title: string;
 	}
 
 	export interface VoiceItemScale {
-		el_type: "scale";
+		el_type: ElementType.scale;
 		size: number;
 	}
 
 	export interface VoiceItemStem {
-		el_type: "stem";
+		el_type: ElementType.stem;
 		direction: StemDirection;
 	}
 
 	export interface VoiceItemStyle {
-		el_type: "style";
+		el_type: ElementType.style;
 		head: NoteHeadType;
 	}
 
 	export interface VoiceItemTempo extends TempoProperties {
-		el_type: "tempo";
+		el_type: ElementType.tempo;
 		startChar: number;
 		endChar: number;
 	}
 
 	export interface VoiceItemTranspose {
-		el_type: "transpose";
+		el_type: ElementType.transpose;
 		steps: number;
 	}
 
 	export interface VoiceItemNote extends NoteProperties {
-		el_type: "note";
+		el_type: ElementType.note;
 		startChar: number;
 		endChar: number;
 	}
@@ -738,30 +764,55 @@ declare module 'abcjs' {
 
 	export type TuneObjectArray = [TuneObject]
 
+	enum ElementType {
+		bagpipes="bagpipes",
+		bar="bar",
+		beat="beat",
+		beataccents="beataccents",
+		channel="channel",
+		clef="clef",
+		drum="drum",
+		gap="gap",
+		instrument="instrument",
+		key="key",
+		meter="meter",
+		midi="midi",
+		name="name",
+		note="note",
+		overlay="overlay",
+		part="part",
+		scale="scale",
+		stem="stem",
+		style="style",
+		tempo="tempo",
+		transpose="transpose",
+	}
+
 	export interface AbcElem {
-		el_type: string //TODO enumerate these
+		el_type: ElementType;
 		abselem: any;
 		beambr?: number;
-		chord?: Array<any>
-		decoration: Array<any>
-		duration: number
-		endBeam?: boolean
-		endSlur?: number
-		endTriplet?: true
-		gracenotes?: Array<any>
-		lyric?: Array<any>
-		noStem?: boolean
-		pitches?: Array<any>
-		positioning?: any
-		rest?: any
-		startBeam?: boolean
-		startTriplet?: number
-		tripletMultiplier?: number
-		tripletR?: number
-		stemConnectsToAbove?: true
-		style?: NoteHeadType
-		startChar: number
-		endChar: number
+		chord?: Array<any>;
+		decoration: Array<any>;
+		duration: number;
+		endBeam?: boolean;
+		endSlur?: number;
+		endTriplet?: true;
+		fonts: Font;
+		gracenotes?: Array<any>;
+		lyric?: Array<any>;
+		noStem?: boolean;
+		pitches?: Array<any>;
+		positioning?: any;
+		rest?: any;
+		startBeam?: boolean;
+		startTriplet?: number;
+		tripletMultiplier?: number;
+		tripletR?: number;
+		stemConnectsToAbove?: true;
+		style?: NoteHeadType;
+		startChar: number;
+		endChar: number;
 	}
 
 	export interface ClickListenerDrag {
@@ -830,28 +881,28 @@ declare module 'abcjs' {
 
 	// Audio
 	export interface SequenceInstrument {
-		el_type: "instrument";
+		el_type: ElementType.instrument;
 		program: number;
 		pickupLength: number;
 	}
 
 	export interface SequenceChannel {
-		el_type: "channel";
+		el_type: ElementType.channel;
 		channel: number;
 	}
 
 	export interface SequenceTranspose {
-		el_type: "transpose";
+		el_type: ElementType.transpose;
 		transpose: number;
 	}
 
 	export interface SequenceName {
-		el_type: "name";
+		el_type: ElementType.name;
 		trackName: string;
 	}
 
 	export interface SequenceDrum {
-		el_type: "drum";
+		el_type: ElementType.drum;
 		pattern: string;
 		on: boolean;
 		bars?: number;
@@ -859,31 +910,31 @@ declare module 'abcjs' {
 	}
 
 	export interface SequenceTempo {
-		el_type: "tempo";
+		el_type: ElementType.tempo;
 		qpm: number;
 	}
 
 	export interface SequenceKey {
-		el_type: "key";
+		el_type: ElementType.key;
 		accidentals: Array<Accidental>;
 	}
 
 	export interface SequenceBeat {
-		el_type: "beat";
+		el_type: ElementType.beat;
 		beats: [number,number,number];
 	}
 
 	export interface SequenceBeatAccents {
-		el_type: "beataccents";
+		el_type: ElementType.beataccents;
 		value: boolean;
 	}
 
 	export interface SequenceBagpipes {
-		el_type: "bagpipes";
+		el_type: ElementType.bagpipes;
 	}
 
 	export interface SequenceNote {
-		el_type: "note";
+		el_type: ElementType.note;
 		duration: number;
 		elem: AbsoluteElement;
 		pitches: {pitch: number; name: NoteLetter};
